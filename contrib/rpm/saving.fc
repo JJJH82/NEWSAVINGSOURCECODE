@@ -1,0 +1,8 @@
+/usr/bin/saving-cli		--	gen_context(system_u:object_r:saving_exec_t,s0)
+/usr/sbin/savingd		--	gen_context(system_u:object_r:saving_exec_t,s0)
+/usr/lib(64)?/saving/savingd		--	gen_context(system_u:object_r:saving_exec_t,s0)
+
+/etc/saving(/.*)?		gen_context(system_u:object_r:saving_conf_t,s0)
+/var/lib/saving(/.*)?		gen_context(system_u:object_r:saving_var_lib_t,s0)
+
+(/var)?/run/savingd(/.*)?   gen_context(system_u:object_r:saving_var_run_t,s0)

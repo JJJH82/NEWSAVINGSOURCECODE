@@ -1,0 +1,3 @@
+usr/local/bin/savingd usr/bin
+usr/local/bin/saving-cli usr/bin
+debian/examples/saving.conf etc/saving

@@ -1,0 +1,81 @@
+policy_module(saving, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type saving_t;
+type saving_exec_t;
+init_daemon_domain(saving_t, saving_exec_t)
+
+permissive saving_t;
+
+type saving_initrc_exec_t;
+init_script_file(saving_initrc_exec_t)
+
+type saving_conf_t;
+files_type(saving_conf_t)
+
+type saving_var_lib_t;
+files_type(saving_var_lib_t)
+
+type saving_var_run_t;
+files_type(saving_var_run_t)
+
+type saving_port_t;
+corenet_port(saving_port_t)
+
+########################################
+#
+# saving local policy
+#
+allow saving_t self:process { fork };
+
+allow saving_t self:fifo_file rw_fifo_file_perms;
+allow saving_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(saving_t, saving_conf_t, saving_conf_t)
+manage_files_pattern(saving_t, saving_conf_t, saving_conf_t)
+
+manage_dirs_pattern(saving_t, saving_var_lib_t, saving_var_lib_t)
+manage_files_pattern(saving_t, saving_var_lib_t, saving_var_lib_t)
+files_var_lib_filetrans(saving_t, saving_var_lib_t, { dir file })
+
+manage_dirs_pattern(saving_t, saving_var_run_t, saving_var_run_t)
+manage_files_pattern(saving_t, saving_var_run_t, saving_var_run_t)
+
+sysnet_dns_name_resolve(saving_t)
+corenet_all_recvfrom_unlabeled(saving_t)
+
+allow saving_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(saving_t)
+corenet_tcp_sendrecv_generic_node(saving_t)
+corenet_tcp_sendrecv_all_ports(saving_t)
+corenet_tcp_bind_generic_node(saving_t)
+
+gen_require(`
+    type saving_port_t;
+')
+allow saving_t saving_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type saving_port_t;
+')
+allow saving_t saving_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(saving_t)
+
+files_read_etc_files(saving_t)
+
+miscfiles_read_localization(saving_t)
+
+sysnet_dns_name_resolve(saving_t)
+
+allow saving_t saving_exec_t:file execute_no_trans;
+allow saving_t self:process setsched;
+corecmd_exec_ls(saving_t)
+corenet_tcp_connect_http_port(saving_t)
+dev_read_urand(saving_t)
+fs_getattr_xattr_fs(saving_t)
+kernel_read_system_state(saving_t)

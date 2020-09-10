@@ -1,0 +1,6 @@
+usr/local/bin/saving-qt usr/bin
+share/pixmaps/saving32.xpm usr/share/pixmaps
+share/pixmaps/saving16.xpm usr/share/pixmaps
+share/pixmaps/saving128.png usr/share/pixmaps
+debian/saving-qt.desktop usr/share/applications
+debian/saving-qt.protocol usr/share/kde4/services/

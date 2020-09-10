@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Saving Core
+Comment=Saving P2P Cryptocurrency
+Comment[fr]=Saving, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Saving, eşten eşe kriptografik sanal para birimi
+Exec=saving-qt %u
+Terminal=false
+Type=Application
+Icon=saving128
+MimeType=x-scheme-handler/saving;
+Categories=Office;Finance;
+StartupWMClass=Saving-qt
